@@ -12,12 +12,24 @@ public abstract class Car implements Movable
     private double posY;
     private double direction; // direction of velocity in radians
 
+    protected void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    protected void setNrDoors(int nrDoors) {
+        this.nrDoors = nrDoors;
+    }
+
     public int getNrDoors(){
         return nrDoors;
     }
 
     public double getEnginePower(){
         return enginePower;
+    }
+
+    protected void setEnginePower(double enginePower) {
+        this.enginePower = enginePower;
     }
 
     public double getCurrentSpeed(){
@@ -28,7 +40,7 @@ public abstract class Car implements Movable
         return color;
     }
 
-    public void setColor(Color clr){
+    protected void setColor(Color clr){
         color = clr;
     }
 
@@ -40,6 +52,10 @@ public abstract class Car implements Movable
         currentSpeed = 0;
     }
 
+    // TEMPORARY
+    public double getDirection() {
+        return direction;
+    }
 
     protected abstract double speedFactor();
 

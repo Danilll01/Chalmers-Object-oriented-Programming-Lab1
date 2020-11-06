@@ -1,11 +1,14 @@
 import java.awt.*;
 
-
 public class Volvo240 extends Car {
 
     private final static double trimFactor = 1.25;
     
     public Volvo240(){
+        setColor(Color.BLACK);
+        setModelName("Volvo 240");
+        setNrDoors(4);
+        setEnginePower(100);
         stopEngine();
     }
 
