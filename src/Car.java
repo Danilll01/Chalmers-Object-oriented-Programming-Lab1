@@ -53,8 +53,20 @@ public abstract class Car implements Movable
     }
 
     // TEMPORARY
+    public double getPosX() {
+        return posX;
+    }
+
+    public double getPosY() {
+        return posY;
+    }
+
     public double getDirection() {
         return direction;
+    }
+
+    public String getModelName(){
+        return modelName;
     }
 
     protected abstract double speedFactor();
