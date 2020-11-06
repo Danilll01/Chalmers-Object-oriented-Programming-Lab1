@@ -5,7 +5,7 @@ public abstract class Car
     private int nrDoors; // number of doors on the car
     private Color color;
     private double enginePower; // Engine power of the car
-    private double currentSpeed; // The current speed of the car
+    protected double currentSpeed; // The current speed of the car
     private String modelName; // The car model name
 
     public int getNrDoors(){
