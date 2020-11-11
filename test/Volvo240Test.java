@@ -16,16 +16,6 @@ public class Volvo240Test {
     }
 
     @Test
-    public void color(){
-        assertEquals(Color.BLACK, volvo.getColor());
-    }
-
-    @Test
-    public void model(){
-        assertEquals("Volvo 240", volvo.getModelName());
-    }
-
-    @Test
     public void doors(){
         assertEquals(4, volvo.getNrDoors());
     }

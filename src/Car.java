@@ -1,5 +1,9 @@
 import java.awt.*;
 
+
+/**
+ *
+ */
 public abstract class Car implements Movable
 {
     private int nrDoors; // number of doors on the car
@@ -36,10 +40,6 @@ public abstract class Car implements Movable
         return currentSpeed;
     }
 
-    public Color getColor(){
-        return color;
-    }
-
     protected void setColor(Color clr){
         color = clr;
     }
@@ -65,9 +65,6 @@ public abstract class Car implements Movable
         return direction;
     }
 
-    public String getModelName(){
-        return modelName;
-    }
 
     protected abstract double speedFactor();
 

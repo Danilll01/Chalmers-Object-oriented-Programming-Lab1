@@ -14,16 +14,6 @@ public class Saab95Test {
     }
 
     @Test
-    public void color(){
-        assertEquals(Color.RED, saab.getColor());
-    }
-
-    @Test
-    public void model(){
-        assertEquals("Saab 95", saab.getModelName());
-    }
-
-    @Test
     public void doors(){
         assertEquals(2, saab.getNrDoors());
     }
