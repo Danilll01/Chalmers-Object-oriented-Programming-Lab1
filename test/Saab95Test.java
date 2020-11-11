@@ -61,23 +61,23 @@ public class Saab95Test {
     @Test
     public void moveX(){
         saab.gas(10);
-        double firstX = saab.getPosX();
+        double firstX = saab.getPos().getX();
         saab.move();
 
         double result = firstX + saab.getCurrentSpeed();
 
-        assertEquals(result, saab.getPosX(), 0.001);
+        assertEquals(result, saab.getPos().getX(), 0.001);
     }
 
     public void moveY(){
         saab.gas(10);
-        double firstY = saab.getPosY();
+        double firstY = saab.getPos().getY();
         saab.turnLeft();
         saab.move();
 
         double result = firstY + saab.getCurrentSpeed();
 
-        assertEquals(result, saab.getPosY(), 0.001);
+        assertEquals(result, saab.getPos().getY(), 0.001);
     }
 
 

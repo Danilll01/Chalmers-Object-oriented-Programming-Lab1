@@ -48,24 +48,24 @@ public class Volvo240Test {
     @Test
     public void moveX(){
         volvo.gas(10);
-        double firstX = volvo.getPosX();
+        double firstX = volvo.getPos().getX();
         volvo.move();
 
         double result = firstX + volvo.getCurrentSpeed();
 
-        assertEquals(result, volvo.getPosX(), 0.001);
+        assertEquals(result, volvo.getPos().getX(), 0.001);
     }
 
     @Test
     public void moveY(){
         volvo.gas(10);
-        double firstY = volvo.getPosY();
+        double firstY = volvo.getPos().getY();
         volvo.turnLeft();
         volvo.move();
 
         double result = firstY + volvo.getCurrentSpeed();
 
-        assertEquals(result, volvo.getPosY(), 0.001);
+        assertEquals(result, volvo.getPos().getY(), 0.001);
     }
 
 
