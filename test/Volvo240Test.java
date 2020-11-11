@@ -27,16 +27,16 @@ public class Volvo240Test {
 
     @Test
     public void gas(){
-        double resultSpeed = volvo.getCurrentSpeed() + getSpeedFactor() * 10;
+        double resultSpeed = volvo.getCurrentSpeed() + getSpeedFactor() * 0.5;
 
-        volvo.gas(10);
+        volvo.gas(0.5);
 
         assertEquals(resultSpeed, volvo.getCurrentSpeed(), 0.001);
     }
 
     @Test
     public void brake(){
-        volvo.brake(10);
+        volvo.brake(0.5);
 
         assertEquals(0, volvo.getCurrentSpeed(), 0.001);
     }
@@ -47,7 +47,7 @@ public class Volvo240Test {
 
     @Test
     public void moveX(){
-        volvo.gas(10);
+        volvo.gas(0.5);
         double firstX = volvo.getPos().getX();
         volvo.move();
 
@@ -58,7 +58,7 @@ public class Volvo240Test {
 
     @Test
     public void moveY(){
-        volvo.gas(10);
+        volvo.gas(0.5);
         double firstY = volvo.getPos().getY();
         volvo.turnLeft();
         volvo.move();

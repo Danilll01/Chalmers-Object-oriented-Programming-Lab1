@@ -37,18 +37,18 @@ public class Saab95Test {
 
     @Test
     public void gas(){
-        double resultSpeed = saab.getCurrentSpeed() + getSpeedFactor() * 10;
+        double resultSpeed = saab.getCurrentSpeed() + getSpeedFactor() * 0.5;
 
-        saab.gas(10);
+        saab.gas(0.5);
 
         assertEquals(resultSpeed, saab.getCurrentSpeed(), 0.001);
     }
 
     @Test
     public void brake(){
-        double resultSpeed = saab.getCurrentSpeed() - getSpeedFactor() * 10;
+        double resultSpeed = 0;
 
-        saab.brake(10);
+        saab.brake(0.5);
 
         assertEquals(resultSpeed, saab.getCurrentSpeed(), 0.001);
     }
@@ -60,7 +60,7 @@ public class Saab95Test {
 
     @Test
     public void moveX(){
-        saab.gas(10);
+        saab.gas(0.5);
         double firstX = saab.getPos().getX();
         saab.move();
 
@@ -69,8 +69,9 @@ public class Saab95Test {
         assertEquals(result, saab.getPos().getX(), 0.001);
     }
 
+    @Test
     public void moveY(){
-        saab.gas(10);
+        saab.gas(0.5);
         double firstY = saab.getPos().getY();
         saab.turnLeft();
         saab.move();
