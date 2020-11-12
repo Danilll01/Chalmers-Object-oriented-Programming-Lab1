@@ -25,7 +25,7 @@ public abstract class Car implements Movable
     /**
      * Current total velocity of the car.
      */
-    protected double currentSpeed;
+    private double currentSpeed;
     /**
      * Name of the car's model.
      */
@@ -146,13 +146,17 @@ public abstract class Car implements Movable
      * Increases the car's total velocity. Velocity cannot be increased beyond enginePower.
      * @param amount amount to increase the car's velocity by
      */
-    protected abstract void incrementSpeed(double amount);
+    private void incrementSpeed(double amount){
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
+    }
 
     /**
      * Decreases the car's total velocity. Velocity cannot be decreased to below zero.
      * @param amount amount to decrease the car's velocity by
      */
-    protected abstract void decrementSpeed(double amount);
+    private void decrementSpeed(double amount) {
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+    }
 
     /**
      * Updates the car's position in the 2D plane according to it's currentSpeed and direction.
@@ -183,7 +187,7 @@ public abstract class Car implements Movable
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void gas(double amount){
-        if(amount > 1 || amount < 0) throw new IllegalArgumentException("gas amount has to be between 0 and 1");
+        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("gas amount has to be between 0 and 1");
 
         incrementSpeed(amount);
     }
@@ -194,10 +198,9 @@ public abstract class Car implements Movable
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void brake(double amount){
-        if(amount > 1 || amount < 0) throw new IllegalArgumentException("break amount has to be between 0 and 1");
+        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("break amount has to be between 0 and 1");
 
         decrementSpeed(amount);
     }
-
 
 }
