@@ -12,7 +12,7 @@ public class Volvo240Test {
 
     @Before
     public void before(){
-        volvo = new Volvo240();
+        volvo = new Volvo240(1.25);
     }
 
     @Test
@@ -23,6 +23,12 @@ public class Volvo240Test {
     @Test
     public void enginePower() {
         assertEquals(100, volvo.getEnginePower(), 0.001);
+    }
+
+    @Test
+    public void engineStart(){
+        volvo.startEngine();
+        assertTrue(volvo.getCurrentSpeed() > 0);
     }
 
     @Test
@@ -42,7 +48,7 @@ public class Volvo240Test {
     }
 
     private double getSpeedFactor() {
-        return Volvo240.getTrimFactor() * 0.01 * volvo.getEnginePower();
+        return volvo.getTrimFactor() * 0.01 * volvo.getEnginePower();
     }
 
     @Test
@@ -68,5 +74,16 @@ public class Volvo240Test {
         assertEquals(result, volvo.getPos().getY(), 0.001);
     }
 
+    @Test
+    public void leftTurn(){
+        volvo.turnLeft();
+        assertEquals(Math.PI / 2, volvo.getDirection(), 0.001);
+    }
+
+    @Test
+    public void rightTurn(){
+        volvo.turnRight();
+        assertEquals(-Math.PI / 2, volvo.getDirection(), 0.001);
+    }
 
 }

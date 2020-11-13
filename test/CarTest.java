@@ -1,50 +1,33 @@
 import org.junit.Before;
 import org.junit.Test;
+import java.awt.Color;
 
 import static org.junit.Assert.*;
 
 public class CarTest {
 
-    Saab95 saab;
+    Car car;
 
     @Before
     public void before(){
-        saab = new Saab95();
+        car = new Car(0,0, 3, Color.MAGENTA, 189, "TEST CAR");
     }
 
     @Test
     public void initialSpeedZero(){
-        assertEquals(0, saab.getCurrentSpeed(), 0.001);
-    }
-
-    @Test
-    public void engineStart(){
-        saab.startEngine();
-        assertTrue(saab.getCurrentSpeed() > 0);
+        assertEquals(0, car.getCurrentSpeed(), 0.001);
     }
 
     @Test
     public void initDirection(){
-        assertEquals(0, saab.getDirection(), 0.001);
-    }
-
-    @Test
-    public void leftTurn(){
-        saab.turnLeft();
-        assertEquals(Math.PI / 2, saab.getDirection(), 0.001);
-    }
-
-    @Test
-    public void rightTurn(){
-        saab.turnRight();
-        assertEquals(-Math.PI / 2, saab.getDirection(), 0.001);
+        assertEquals(0, car.getDirection(), 0.001);
     }
 
     @Test
     public void ExceptionTestGas(){
         boolean correctException = false;
         try {
-            saab.gas(-1);
+            car.gas(-1);
         } catch (IllegalArgumentException e){
             correctException = true;
         }
@@ -56,7 +39,7 @@ public class CarTest {
     public void ExceptionTestBrake(){
         boolean correctException = false;
         try {
-            saab.brake(-1);
+            car.brake(-1);
         } catch (IllegalArgumentException e){
             correctException = true;
         }

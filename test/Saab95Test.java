@@ -24,6 +24,12 @@ public class Saab95Test {
     }
 
     @Test
+    public void engineStart(){
+        saab.startEngine();
+        assertTrue(saab.getCurrentSpeed() > 0);
+    }
+
+    @Test
     public void isTurboOff() {
         saab.setTurboOff();
         assertFalse(saab.isTurboOn());
@@ -79,6 +85,18 @@ public class Saab95Test {
         double result = firstY + saab.getCurrentSpeed();
 
         assertEquals(result, saab.getPos().getY(), 0.001);
+    }
+
+    @Test
+    public void leftTurn(){
+        saab.turnLeft();
+        assertEquals(Math.PI / 2, saab.getDirection(), 0.001);
+    }
+
+    @Test
+    public void rightTurn(){
+        saab.turnRight();
+        assertEquals(-Math.PI / 2, saab.getDirection(), 0.001);
     }
 
 

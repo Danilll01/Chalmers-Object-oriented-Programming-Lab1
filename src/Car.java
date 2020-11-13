@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
  *
  * Attributes consist of amount of doors, color, engine power, current speed, model name, x position, y, position and direction angle in radians.
  */
-public abstract class Car implements Movable
+public class Car implements Movable, IVehicle
 {
 
     /**
@@ -42,19 +42,23 @@ public abstract class Car implements Movable
     private double direction;
 
     /**
-     * Sets the name of the car's model.
-     * @param modelName specified model name
+     * Sets specified attributes to given arguments, creates a new car.
+     * @param posX x value of initial position
+     * @param posY y value of initial position
+     * @param nrDoors number of doors on the car
+     * @param color color of the car
+     * @param enginePower car's engine power
+     * @param modelName car's model name
      */
-    protected void setModelName(String modelName) {
-        this.modelName = modelName;
-    }
-
-    /**
-     * Sets the number of doors on the car.
-     * @param nrDoors amount of doors
-     */
-    protected void setNrDoors(int nrDoors) {
+    public Car(double posX, double posY, int nrDoors, Color color, double enginePower, String modelName)
+    {
+        this.position = new Point2D.Double(posX, posY);
         this.nrDoors = nrDoors;
+        this.color = color;
+        this.enginePower = enginePower;
+        this.currentSpeed = 0;
+        this.modelName = modelName;
+        this.direction = 0;
     }
 
     /**
@@ -74,41 +78,11 @@ public abstract class Car implements Movable
     }
 
     /**
-     * Sets the engine power of the car.
-     * @param enginePower specifiec engine power to be set
-     */
-    protected void setEnginePower(double enginePower) {
-        this.enginePower = enginePower;
-    }
-
-    /**
      * Returns the current total velocity of the car.
      * @return current velocity of the car
      */
     public double getCurrentSpeed(){
         return currentSpeed;
-    }
-
-    /**
-     * Sets the color of the car
-     * @param clr color of the car
-     */
-    protected void setColor(Color clr){
-        color = clr;
-    }
-
-    /**
-     * Sets the currentSpeed to 0.1. Used to change the currentSpeed from 0.
-     */
-    public void startEngine(){
-        currentSpeed = 0.1;
-    }
-
-    /**
-     * Sets the current speed of the car to 0. Makes the car stop moving.
-     */
-    public void stopEngine(){
-        currentSpeed = 0;
     }
 
     /**
@@ -120,15 +94,6 @@ public abstract class Car implements Movable
     }
 
     /**
-     * Sets the position of the car in the 2D plane.
-     * @param x car's position in x direction
-     * @param y car's position in y direction
-     */
-    public void setPos(double x, double y) {
-        position = new Point2D.Double(x,y);
-    }
-
-    /**
      * Returns the current direction of the car's velocity in radians.
      * @return the car's velocity's direction in radians
      */
@@ -137,17 +102,11 @@ public abstract class Car implements Movable
     }
 
     /**
-     * Returns the factor by which the speed should be modified when it accelerates/decelerates.
-     * @return factor to modify currentSpeed with during acceleration/deceleration
-     */
-    protected abstract double speedFactor();
-
-    /**
      * Increases the car's total velocity. Velocity cannot be increased beyond enginePower.
      * @param amount amount to increase the car's velocity by
      */
     private void incrementSpeed(double amount){
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
+        currentSpeed = Math.min(getCurrentSpeed() + amount, getEnginePower());
     }
 
     /**
@@ -155,7 +114,7 @@ public abstract class Car implements Movable
      * @param amount amount to decrease the car's velocity by
      */
     private void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+        currentSpeed = Math.max(getCurrentSpeed() - amount, 0);
     }
 
     /**
@@ -180,6 +139,16 @@ public abstract class Car implements Movable
     public void turnRight(){
         direction -= Math.PI / 2;
     }
+
+    /**
+     * Sets the current speed of the car to 0. Makes the car stop moving.
+     */
+    public void stopEngine() { currentSpeed = 0; }
+
+    /**
+     * Sets the current speed of the car to 0.1. Make the car start moving. Should be called when the car isn't moving.
+     */
+    public void startEngine() { currentSpeed = 0.1; }
 
     /**
      * Makes the car accelerate, increases its current speed. Only accepts
