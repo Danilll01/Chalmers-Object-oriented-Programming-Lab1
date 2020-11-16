@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
+import Helpers.*;
 
 
 /**
@@ -11,35 +12,14 @@ public class Car implements Movable, IVehicle
 {
 
     /**
-     * Number of doors on the car.
+     * Keeps track of the position and velocity of the car.
      */
-    private int nrDoors;
-    /**
-     * Color of the car.
-     */
-    private Color color;
-    /**
-     * Decides the max speed of the car as well as its rate of acceleration.
-     */
-    private double enginePower;
-    /**
-     * Current total velocity of the car.
-     */
-    private double currentSpeed;
-    /**
-     * Name of the car's model.
-     */
-    private String modelName;
+    PositionHelper pHelper;
 
     /**
-     * The cars position described with a Point2D.Double object.
+     * Keeps track of the car's color, model name, engine power and amount of doors
      */
-    private Point2D.Double position;
-
-    /**
-     * The direction of the cars velocity in radians
-     */
-    private double direction;
+    VehicleHelper vHelper;
 
     /**
      * Sets specified attributes to given arguments, creates a new car.
@@ -52,53 +32,8 @@ public class Car implements Movable, IVehicle
      */
     public Car(double posX, double posY, int nrDoors, Color color, double enginePower, String modelName)
     {
-        this.position = new Point2D.Double(posX, posY);
-        this.nrDoors = nrDoors;
-        this.color = color;
-        this.enginePower = enginePower;
-        this.currentSpeed = 0;
-        this.modelName = modelName;
-        this.direction = 0;
-    }
-
-    /**
-     * Returns the number of doors on the car.
-     * @return the number of doors on the car
-     */
-    public int getNrDoors(){
-        return nrDoors;
-    }
-
-    /**
-     * Returns the engine power of the car.
-     * @return the engine power of the car
-     */
-    public double getEnginePower(){
-        return enginePower;
-    }
-
-    /**
-     * Returns the current total velocity of the car.
-     * @return current velocity of the car
-     */
-    public double getCurrentSpeed(){
-        return currentSpeed;
-    }
-
-    /**
-     * Returns the position of the car.
-     * @return a Point with x and y coordinates
-     */
-    public Point2D getPos() {
-        return position;
-    }
-
-    /**
-     * Returns the current direction of the car's velocity in radians.
-     * @return the car's velocity's direction in radians
-     */
-    public double getDirection() {
-        return direction;
+        pHelper = new PositionHelper(0, posX, posY, 0);
+        vHelper = new VehicleHelper(nrDoors, color, modelName, enginePower);
     }
 
     /**
@@ -106,7 +41,8 @@ public class Car implements Movable, IVehicle
      * @param amount amount to increase the car's velocity by
      */
     private void incrementSpeed(double amount){
-        currentSpeed = Math.min(getCurrentSpeed() + amount, getEnginePower());
+        pHelper.setCurrentSpeed(Math.min(pHelper.getCurrentSpeed() + amount, vHelper.getEnginePower()));
+
     }
 
     /**
@@ -114,41 +50,41 @@ public class Car implements Movable, IVehicle
      * @param amount amount to decrease the car's velocity by
      */
     private void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - amount, 0);
+        pHelper.setCurrentSpeed(Math.max(pHelper.getCurrentSpeed() - amount, 0));
     }
 
     /**
      * Updates the car's position in the 2D plane according to it's currentSpeed and direction.
      */
     public void move(){
-        double x = getCurrentSpeed() * Math.cos(direction);
-        double y = getCurrentSpeed() * Math.sin(direction);
-        position.setLocation(position.getX() + x, position.getY() + y);
+        double x = pHelper.getCurrentSpeed() * Math.cos(pHelper.getDirection());
+        double y = pHelper.getCurrentSpeed() * Math.sin(pHelper.getDirection());
+        pHelper.setPosition(pHelper.getPos().getX() + x, pHelper.getPos().getY() + y);
     }
 
     /**
      * Makes the car turn 90 degrees to the left. Increases the car's direction by PI/2 radians.
      */
     public void turnLeft(){
-        direction += Math.PI / 2;
+        pHelper.setDirection(pHelper.getDirection() + Math.PI / 2);
     }
 
     /**
      * Makes the car turn 90 degrees to the right. Decreases the car's direction by PI/2 radians.
      */
     public void turnRight(){
-        direction -= Math.PI / 2;
+        pHelper.setDirection(pHelper.getDirection() - Math.PI / 2);
     }
 
     /**
      * Sets the current speed of the car to 0. Makes the car stop moving.
      */
-    public void stopEngine() { currentSpeed = 0; }
+    public void stopEngine() { pHelper.setCurrentSpeed(0); }
 
     /**
      * Sets the current speed of the car to 0.1. Make the car start moving. Should be called when the car isn't moving.
      */
-    public void startEngine() { currentSpeed = 0.1; }
+    public void startEngine() { pHelper.setCurrentSpeed(0.1); }
 
     /**
      * Makes the car accelerate, increases its current speed. Only accepts
