@@ -1,5 +1,3 @@
-package Helpers;
-
 import java.awt.*;
 import java.awt.geom.Point2D;
 
@@ -10,7 +8,7 @@ import java.awt.geom.Point2D;
  *
  * Used to avoid code duplication.
  */
-public class VehicleHelper
+public class Vehicle implements IVehicle
 {
     /**
      * Number of doors on the vehicle.
@@ -49,7 +47,7 @@ public class VehicleHelper
      * @param model model name of the vehicle
      * @param enginePower power of the vehicle's engine
      */
-    public VehicleHelper(int doors, Color color, String model, double enginePower, double posX, double posY)
+    public Vehicle(int doors, Color color, String model, double enginePower, double posX, double posY)
     {
         this.nrDoors = doors;
         this.color = color;
@@ -165,4 +163,41 @@ public class VehicleHelper
         direction = direction - Math.PI / 2;
     }
 
+    /**
+     * Sets the speed of the vehicle to 0.1. Makes the vehicle start moving. Should be called when the vehicle isn't moving.
+     */
+    public void startEngine() {
+        currentSpeed = 0.1;
+    }
+
+    /**
+     * Sets the speed of the vehicle to 0. Makes the vehicle stop moving.
+     */
+    public void stopEngine() {
+        currentSpeed = 0;
+    }
+
+    /**
+     * Makes the vehicle accelerate, increases its current speed.
+     *
+     * @param amount amount to increase the car's speed by (between 0 and 1)
+     * @throws IllegalArgumentException if amount is not between 0 and 1
+     */
+    public void gas(double amount) {
+        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("gas amount has to be between 0 and 1");
+
+        incrementSpeed(amount);
+    }
+
+    /**
+     * Makes the vehicle decelerate, decreases its current speed.
+     *
+     * @param amount amount to decrease the car's speed by (between 0 and 1)
+     * @throws IllegalArgumentException if amount is not between 0 and 1
+     */
+    public void brake(double amount) {
+        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("break amount has to be between 0 and 1");
+
+        decrementSpeed(amount);
+    }
 }

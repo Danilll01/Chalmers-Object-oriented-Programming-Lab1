@@ -1,6 +1,5 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
-import Helpers.*;
 
 
 /**
@@ -10,7 +9,7 @@ import Helpers.*;
  */
 public class Car implements Movable, IVehicle
 {
-    private final VehicleHelper vHelper;
+    private final Vehicle vehicle;
 
     /**
      * Sets specified attributes to given arguments, creates a new car.
@@ -22,7 +21,7 @@ public class Car implements Movable, IVehicle
      * @param modelName car's model name
      */
     public Car(int nrDoors, Color color, double enginePower, String modelName, double posX, double posY) {
-        vHelper = new VehicleHelper(nrDoors, color, modelName, enginePower, posX, posY);
+        vehicle = new Vehicle(nrDoors, color, modelName, enginePower, posX, posY);
     }
 
     /**
@@ -30,7 +29,7 @@ public class Car implements Movable, IVehicle
      * @param amount amount to increase the car's velocity by
      */
     private void incrementSpeed(double amount){
-        vHelper.incrementSpeed(amount);
+        vehicle.incrementSpeed(amount);
     }
 
     /**
@@ -38,39 +37,39 @@ public class Car implements Movable, IVehicle
      * @param amount amount to decrease the car's velocity by
      */
     private void decrementSpeed(double amount) {
-        vHelper.decrementSpeed(amount);
+        vehicle.decrementSpeed(amount);
     }
 
     /**
      * Updates the car's position in the 2D plane according to it's currentSpeed and direction.
      */
     public void move(){
-        vHelper.move();
+        vehicle.move();
     }
 
     /**
      * Makes the car turn 90 degrees to the left. Increases the car's direction by PI/2 radians.
      */
     public void turnLeft(){
-        vHelper.turnLeft();
+        vehicle.turnLeft();
     }
 
     /**
      * Makes the car turn 90 degrees to the right. Decreases the car's direction by PI/2 radians.
      */
     public void turnRight(){
-        vHelper.turnRight();
+        vehicle.turnRight();
     }
 
     /**
      * Sets the current speed of the car to 0. Makes the car stop moving.
      */
-    public void stopEngine() { vHelper.setCurrentSpeed(0); }
+    public void stopEngine() { vehicle.stopEngine(); }
 
     /**
      * Sets the current speed of the car to 0.1. Make the car start moving. Should be called when the car isn't moving.
      */
-    public void startEngine() { vHelper.setCurrentSpeed(0.1); }
+    public void startEngine() { vehicle.startEngine(); }
 
     /**
      * Makes the car accelerate, increases its current speed. Only accepts
@@ -78,9 +77,7 @@ public class Car implements Movable, IVehicle
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void gas(double amount){
-        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("gas amount has to be between 0 and 1");
-
-        incrementSpeed(amount);
+        vehicle.gas(amount);
     }
 
     /**
@@ -89,9 +86,7 @@ public class Car implements Movable, IVehicle
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void brake(double amount){
-        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("break amount has to be between 0 and 1");
-
-        decrementSpeed(amount);
+        vehicle.brake(amount);
     }
 
     /**
@@ -99,7 +94,7 @@ public class Car implements Movable, IVehicle
      * @return number of doors on the vehicle
      */
     public int getNrDoors(){
-        return vHelper.getNrDoors();
+        return vehicle.getNrDoors();
     }
 
     /**
@@ -107,7 +102,7 @@ public class Car implements Movable, IVehicle
      * @return vehicle's engine power
      */
     public double getEnginePower(){
-        return vHelper.getEnginePower();
+        return vehicle.getEnginePower();
     }
 
     /**
@@ -115,7 +110,7 @@ public class Car implements Movable, IVehicle
      * @return vehicle's model name
      */
     public String getModelName(){
-        return vHelper.getModelName();
+        return vehicle.getModelName();
     }
 
     /**
@@ -123,7 +118,7 @@ public class Car implements Movable, IVehicle
      * @return vehicles' color
      */
     public Color getColor(){
-        return vHelper.getColor();
+        return vehicle.getColor();
     }
 
     /**
@@ -131,7 +126,7 @@ public class Car implements Movable, IVehicle
      * @return current velocity of the car
      */
     public double getCurrentSpeed(){
-        return vHelper.getCurrentSpeed();
+        return vehicle.getCurrentSpeed();
     }
 
     /**
@@ -139,7 +134,7 @@ public class Car implements Movable, IVehicle
      * @return a Point with x and y coordinates
      */
     public Point2D getPos() {
-        return vHelper.getPos();
+        return vehicle.getPos();
     }
 
     /**
@@ -147,7 +142,7 @@ public class Car implements Movable, IVehicle
      * @return the car's velocity's direction in radians
      */
     public double getDirection() {
-        return vHelper.getDirection();
+        return vehicle.getDirection();
     }
 
 }

@@ -1,5 +1,3 @@
-import Helpers.VehicleHelper;
-
 import java.awt.*;
 
 /**
@@ -8,24 +6,24 @@ import java.awt.*;
 public class Truck implements IVehicle, Movable
 {
 
-    private final VehicleHelper vHelper;
+    private final Vehicle vehicle;
 
-    public Truck() {
-        this.vHelper = new VehicleHelper(2, Color.PINK, "Scania-R", 200, 0 ,0 );
+    public Truck(int nrDoors, Color color, double enginePower, String modelName, double posX, double posY) {
+        this.vehicle = new Vehicle(nrDoors, color, modelName, enginePower, posX ,posY );
     }
 
     /**
      * Sets the speed of the vehicle to 0.1. Makes the vehicle start moving. Should be called when the vehicle isn't moving.
      */
     public void startEngine() {
-
+        vehicle.startEngine();
     }
 
     /**
      * Sets the speed of the vehicle to 0. Makes the vehicle stop moving.
      */
     public void stopEngine() {
-
+        vehicle.stopEngine();
     }
 
     /**
@@ -35,7 +33,7 @@ public class Truck implements IVehicle, Movable
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void gas(double amount) {
-
+        vehicle.gas(amount);
     }
 
     /**
@@ -45,27 +43,33 @@ public class Truck implements IVehicle, Movable
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void brake(double amount) {
-
+        vehicle.brake(amount);
     }
 
     /**
-     * Moves the object.
+     * Updates the truck's position in the 2D plane according to it's currentSpeed and direction.
      */
     public void move() {
-
+        vehicle.move();
     }
 
     /**
-     * Makes the object turn left.
+     * Makes the truck turn 90 degrees to the left. Increases the truck's direction by PI/2 radians.
      */
     public void turnLeft() {
-
+        vehicle.turnLeft();
     }
 
     /**
-     * Makes te object turn right.
+     * Makes the truck turn 90 degrees to the left. Increases the truck's direction by PI/2 radians.
      */
     public void turnRight() {
-
+        vehicle.turnRight();
     }
+
+    public double getEnginePower(){
+        return vehicle.getEnginePower();
+    }
+
+    public double getCurrentSpeed(){ return vehicle.getCurrentSpeed(); }
 }
