@@ -17,7 +17,7 @@ public class Volvo240 implements IVehicle, Movable {
      * Sets this cars color to black, model name to "Volvo 240", number of doors to 4, engine power to 100, stops the engine and sets start position to 0,0.
      */
     public Volvo240(double trimFactor) {
-        car = new Car(0, 0, 4, Color.BLACK, 100, "Volvo 240");
+        car = new Car(4, Color.BLACK, 100, "Volvo 240", 0, 0);
         this.trimFactor = trimFactor;
         stopEngine();
     }

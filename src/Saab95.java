@@ -15,7 +15,7 @@ public class Saab95 implements IVehicle, Movable {
      * position to (0, 0) and stops the engine (sets current speed to 0).
      */
     public Saab95(){
-        car = new Car(0,0,2,Color.RED,125,"Saab 95");
+        car = new Car(2, Color.RED,125,"Saab 95", 0,0);
         stopEngine();
     }
 

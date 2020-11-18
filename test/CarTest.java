@@ -10,7 +10,7 @@ public class CarTest {
 
     @Before
     public void before(){
-        car = new Car(0,0, 3, Color.MAGENTA, 189, "TEST CAR");
+        car = new Car(2, Color.MAGENTA, 189, "TEST CAR",0,0);
     }
 
     @Test

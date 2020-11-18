@@ -1,25 +1,46 @@
 package Helpers;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 
+/**
+ * Helps vehicle classes with handling several parameters, such as number of doors,
+ * color, model name, engine power, velocity, position and direction; as well as
+ * handling these in different ways.
+ *
+ * Used to avoid code duplication.
+ */
 public class VehicleHelper
 {
     /**
-     * Number of doors on the car.
+     * Number of doors on the vehicle.
      */
     private final int nrDoors;
     /**
-     * Color of the car.
+     * Color of the vehicle.
      */
     private final Color color;
     /**
-     * The cars modelname
+     * The vehicle's model name
      */
     private final String modelName;
     /**
-     * Decides the max speed of the car as well as its rate of acceleration.
+     * Decides the max speed of the vehicle as well as its rate of acceleration.
      */
     private final double enginePower;
+
+    /**
+     * Current total velocity of the vehicle.
+     */
+    private double currentSpeed;
+    /**
+     * The vehicle's position described with a Point2D.Double object.
+     */
+    private final Point2D.Double position;
+    /**
+     * The direction of the vehicle's velocity in radians
+     */
+    private double direction;
 
     /**
      * Creates a new VehicleHelper with specified parameters.
@@ -28,19 +49,24 @@ public class VehicleHelper
      * @param model model name of the vehicle
      * @param enginePower power of the vehicle's engine
      */
-    public VehicleHelper(int doors, Color color, String model, double enginePower)
+    public VehicleHelper(int doors, Color color, String model, double enginePower, double posX, double posY)
     {
         this.nrDoors = doors;
         this.color = color;
         this.modelName = model;
         this.enginePower = enginePower;
+
+        this.currentSpeed = 0;
+        this.direction = 0;
+        this.position = new Point2D.Double(posX, posY);
+
     }
 
     /**
      * returns the number of doors on the vehicle
      * @return number of doors on the vehicle
      */
-    public int getNumberDoors(){
+    public int getNrDoors(){
         return nrDoors;
     }
 
@@ -66,6 +92,77 @@ public class VehicleHelper
      */
     public Color getColor(){
         return color;
+    }
+
+    /**
+     * Returns the current total velocity of the car.
+     * @return current velocity of the car
+     */
+    public double getCurrentSpeed(){
+        return currentSpeed;
+    }
+
+    /**
+     * Returns the position of the car.
+     * @return a Point with x and y coordinates
+     */
+    public Point2D getPos() {
+        return position;
+    }
+
+    /**
+     * Returns the current direction of the car's velocity in radians.
+     * @return the car's velocity's direction in radians
+     */
+    public double getDirection() {
+        return direction;
+    }
+
+    /**
+     * Sets the speed of the vehicle to specified value
+     * @param speed specified speed to be set
+     */
+    public void setCurrentSpeed(double speed){
+        currentSpeed = speed;
+    }
+
+    /**
+     * Increases current speed with specified amount
+     * @param amount amount to increment speed by
+     */
+    public void incrementSpeed(double amount){
+        currentSpeed += Math.min(currentSpeed + amount, enginePower);
+    }
+
+    /**
+     * Decreases current speed with specified amount
+     * @param amount amount decrement speed by
+     */
+    public void decrementSpeed(double amount){
+        currentSpeed += Math.max(currentSpeed - amount, 0);
+    }
+
+    /**
+     * Updates the vehicle's position in the 2D plane according to it's currentSpeed and direction.
+     */
+    public void move(){
+        double x = currentSpeed * Math.cos(direction);
+        double y = currentSpeed * Math.sin(direction);
+        position.setLocation(position.getX() + x, position.getY() + y);
+    }
+
+    /**
+     * Makes the vehicle turn 90 degrees to the left. Increases the vehicle's direction by PI/2 radians.
+     */
+    public void turnLeft(){
+        direction = direction + Math.PI / 2;
+    }
+
+    /**
+     * Makes the vehicle turn 90 degrees to the right. Decreases the vehicle's direction by PI/2 radians.
+     */
+    public void turnRight(){
+        direction = direction - Math.PI / 2;
     }
 
 }
