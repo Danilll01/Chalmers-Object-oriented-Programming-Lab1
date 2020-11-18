@@ -104,8 +104,16 @@ public class Vehicle implements IVehicle
      * Returns the position of the car.
      * @return a Point with x and y coordinates
      */
-    public Point2D getPos() {
+    public Point2D.Double getPos() {
         return position;
+    }
+
+    public void setPosition(double x, double y){
+        position.setLocation(x, y);
+    }
+
+    public void setDirection(double angle){
+        direction = angle;
     }
 
     /**

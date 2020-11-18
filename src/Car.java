@@ -9,7 +9,19 @@ import java.awt.geom.Point2D;
  */
 public class Car implements Movable, IVehicle
 {
+    /**
+     * Delegate vehicle object.
+     */
     private final Vehicle vehicle;
+
+    /**
+     * Transporter on which the car is loaded onto.
+     */
+    private CarTransport transport;
+    /**
+     * True if the car is on a car transporter.
+     */
+    private boolean loaded;
 
     /**
      * Sets specified attributes to given arguments, creates a new car.
@@ -25,68 +37,73 @@ public class Car implements Movable, IVehicle
     }
 
     /**
-     * Increases the car's total velocity. Velocity cannot be increased beyond enginePower.
-     * @param amount amount to increase the car's velocity by
-     */
-    private void incrementSpeed(double amount){
-        vehicle.incrementSpeed(amount);
-    }
-
-    /**
-     * Decreases the car's total velocity. Velocity cannot be decreased to below zero.
-     * @param amount amount to decrease the car's velocity by
-     */
-    private void decrementSpeed(double amount) {
-        vehicle.decrementSpeed(amount);
-    }
-
-    /**
-     * Updates the car's position in the 2D plane according to it's currentSpeed and direction.
+     * Updates the car's position in the 2D plane according to it's currentSpeed and direction. Simply sets position
+     * to transporters position if the car is on a transporter.
      */
     public void move(){
-        vehicle.move();
+        if(loaded){
+            Point2D.Double newPos = transport.getPos();
+            vehicle.setPosition(newPos.getX(), newPos.getY());
+        }
+        else vehicle.move();
     }
 
     /**
-     * Makes the car turn 90 degrees to the left. Increases the car's direction by PI/2 radians.
+     * Makes the car turn 90 degrees to the left. Increases the car's direction by PI/2 radians. Sets direction to transporters
+     * direction if the car is on a transporter.
      */
     public void turnLeft(){
-        vehicle.turnLeft();
+        if(!loaded) vehicle.turnLeft();
+        else vehicle.setDirection(transport.getDirection());
     }
 
     /**
-     * Makes the car turn 90 degrees to the right. Decreases the car's direction by PI/2 radians.
+     * Makes the car turn 90 degrees to the right. Decreases the car's direction by PI/2 radians. Sets direction to transporters
+     *      * direction if the car is on a transporter.
      */
     public void turnRight(){
-        vehicle.turnRight();
+        if(!loaded) vehicle.turnRight();
+        else vehicle.setDirection(transport.getDirection());
     }
 
     /**
-     * Sets the current speed of the car to 0. Makes the car stop moving.
+     * Sets the current speed of the car to 0. Makes the car stop moving. Sets speed to transporters
+     * speed if the car is on a transporter.
      */
-    public void stopEngine() { vehicle.stopEngine(); }
+    public void stopEngine() {
+        if(!loaded) vehicle.stopEngine();
+        else vehicle.setCurrentSpeed(transport.getCurrentSpeed());
+    }
 
     /**
-     * Sets the current speed of the car to 0.1. Make the car start moving. Should be called when the car isn't moving.
+     * Sets the current speed of the car to 0.1. Make the car start moving. Should be called when the car isn't moving. Sets speed to transporters
+     * speed if the car is on a transporter.
      */
-    public void startEngine() { vehicle.startEngine(); }
+    public void startEngine() {
+        if(!loaded) vehicle.startEngine();
+        else vehicle.setCurrentSpeed(transport.getCurrentSpeed());
+    }
 
     /**
-     * Makes the car accelerate, increases its current speed. Only accepts
+     * Makes the car accelerate, increases its current speed. Sets speed to transporters
+     * speed if the car is on a transporter.
      * @param amount amount to increase the car's speed by (between 0 and 1)
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void gas(double amount){
-        vehicle.gas(amount);
+        if(!loaded)vehicle.gas(amount);
+        else vehicle.setCurrentSpeed(transport.getCurrentSpeed());
     }
 
     /**
-     * Makes the car decelerate, decreases its current speed.
+     * Makes the car decelerate, decreases its current speed. Sets speed to transporters
+     * speed if the car is on a transporter.
      * @param amount amount to decrease the car's speed by (between 0 and 1)
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void brake(double amount){
-        vehicle.brake(amount);
+        if(!loaded) vehicle.brake(amount);
+        else vehicle.setCurrentSpeed(transport.getCurrentSpeed());
     }
 
     /**
@@ -133,7 +150,7 @@ public class Car implements Movable, IVehicle
      * Returns the position of the car.
      * @return a Point with x and y coordinates
      */
-    public Point2D getPos() {
+    public Point2D.Double getPos() {
         return vehicle.getPos();
     }
 
@@ -143,6 +160,34 @@ public class Car implements Movable, IVehicle
      */
     public double getDirection() {
         return vehicle.getDirection();
+    }
+
+    /**
+     * Method that is called when the car gets loaded onto a car transporter. Sets relevant attributes to specified values
+     * to keep track of the transporter's speed and other attributes in the future.
+     * @param transport car transporter that the car is loaded onto
+     */
+    public void loadCar(CarTransport transport){
+        this.transport = transport;
+        loaded = true;
+
+        Point2D.Double currentPos = transport.getPos();
+
+        vehicle.setPosition(currentPos.getX(), currentPos.getY());
+        vehicle.setCurrentSpeed(0);
+        vehicle.setDirection(transport.getDirection());
+    }
+
+    /**
+     * Method to be called when the car gets unloaded from a car transporter.
+     */
+    public void unloadCar(){
+        this.transport = null;
+        loaded = false;
+
+        Point2D.Double currentPos = vehicle.getPos();
+
+        vehicle.setPosition(currentPos.getX() + 5, currentPos.getY() + 5);
     }
 
 }

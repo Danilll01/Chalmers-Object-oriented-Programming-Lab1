@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.geom.Point2D;
 
 /**
  * Implements the idea of a truck, has a ramp that can be lowered
@@ -67,9 +68,18 @@ public class Truck implements IVehicle, Movable
         vehicle.turnRight();
     }
 
+
     public double getEnginePower(){
         return vehicle.getEnginePower();
     }
 
     public double getCurrentSpeed(){ return vehicle.getCurrentSpeed(); }
+
+    public Point2D.Double getPos() {
+        return vehicle.getPos();
+    }
+
+    public double getDirection() {
+        return vehicle.getDirection();
+    }
 }

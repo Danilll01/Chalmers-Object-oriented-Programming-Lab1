@@ -91,7 +91,7 @@ public class Scania implements IVehicle, Movable
 
     /**
      * Raises the angle of the truck's platform by specified amount of degrees but only if the truck is stationary.
-     * If the car is moving, then the platform will not raise itself.
+     * If the truck is moving, then the platform will not raise itself.
      * @param amount angle in degrees
      */
     public void raisePlatform(int amount)
@@ -105,7 +105,7 @@ public class Scania implements IVehicle, Movable
 
     /**
      * Lowers the angle of the truck's platform by specified amount of degrees,  but only if the truck is stationary.
-     * If the car is moving, then the platform will not lower itself.
+     * If the truck is moving, then the platform will not lower itself.
      * @param amount angle in degrees
      */
     public void lowerPlatform(int amount)
