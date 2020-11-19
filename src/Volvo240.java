@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 /**
  * Implemented model of the Car superclass. Implements a trim feature.
  */
-public class Volvo240 implements IVehicle, Movable {
+public class Volvo240 implements IVehicle, Movable, ICar {
 
     private final Car car;
 
@@ -101,7 +101,7 @@ public class Volvo240 implements IVehicle, Movable {
      * Returns the position of the car.
      * @return a Point with x and y coordinates
      */
-    public Point2D getPos() {
+    public Point2D.Double getPos() {
         return car.getPos();
     }
 
@@ -132,5 +132,22 @@ public class Volvo240 implements IVehicle, Movable {
      */
     public void turnRight() {
         car.turnRight();
+    }
+
+    /**
+     * Method that is called when the car gets loaded onto a car transporter. Sets relevant attributes to specified values
+     * to keep track of the transporter's speed and other attributes in the future.
+     *
+     * @param transport car transporter that the car is loaded onto
+     */
+    public void loadCar(CarTransport transport) {
+        car.loadCar(transport);
+    }
+
+    /**
+     * Method to be called when the car gets unloaded from a car transporter.
+     */
+    public void unloadCar() {
+        car.unloadCar();
     }
 }

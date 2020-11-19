@@ -7,7 +7,7 @@ import java.awt.geom.Point2D;
  *
  * Attributes consist of amount of doors, color, engine power, current speed, model name, x position, y, position and direction angle in radians.
  */
-public class Car implements Movable, IVehicle
+public class Car implements Movable, IVehicle, ICar
 {
     /**
      * Delegate vehicle object.

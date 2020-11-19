@@ -4,7 +4,7 @@ import java.awt.geom.Point2D;
 /**
  * Implemented model of the Car superclass. Implements a turbo feature.
  */
-public class Saab95 implements IVehicle, Movable {
+public class Saab95 implements IVehicle, Movable, ICar {
 
     private boolean turboOn;
 
@@ -110,10 +110,27 @@ public class Saab95 implements IVehicle, Movable {
     }
 
     /**
+     * Method that is called when the car gets loaded onto a car transporter. Sets relevant attributes to specified values
+     * to keep track of the transporter's speed and other attributes in the future.
+     *
+     * @param transport car transporter that the car is loaded onto
+     */
+    public void loadCar(CarTransport transport) {
+        car.loadCar(transport);
+    }
+
+    /**
+     * Method to be called when the car gets unloaded from a car transporter.
+     */
+    public void unloadCar() {
+        car.unloadCar();
+    }
+
+    /**
      * Returns the position of the car.
      * @return a Point with x and y coordinates
      */
-    public Point2D getPos() {
+    public Point2D.Double getPos() {
         return car.getPos();
     }
 
