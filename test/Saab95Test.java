@@ -14,6 +14,11 @@ public class Saab95Test {
     }
 
     @Test
+    public void createSaabWithParams() {
+        Saab95 saab2 = new Saab95(Color.RED, "Saab95", 2, 125, 0, 0);
+    }
+
+    @Test
     public void doors(){
         assertEquals(2, saab.getNrDoors());
     }

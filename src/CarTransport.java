@@ -24,16 +24,20 @@ public class CarTransport extends Truck
      * Sets attributes to their default values.
      */
     public CarTransport(){
-        setColor(Color.PINK);
-        setModelName("Car transporter");
-        setNrDoors(2);
-        setEnginePower(220);
-        stopEngine();
+        super(Color.PINK, "Car transporter", 2, 220, 0, 0);
 
         storedCars = new ArrayDeque<>(3);
         rampLowered = false;
+    }
 
-        setPos(0, 0);
+    /**
+     * Passes constructor parameters to super, creates a stack and set rampLowered to false.
+     */
+    public CarTransport(Color color, String modelName, int nDoors, double enginePower, double posX, double posY) {
+        super(color, modelName, nDoors, enginePower, posX, posY);
+
+        storedCars = new ArrayDeque<>(3);
+        rampLowered = false;
     }
 
     /**
@@ -70,7 +74,7 @@ public class CarTransport extends Truck
      * @param car car to be loaded
      */
     public void loadCar(Car car){
-        if(storedCars.size() >= 3 || !rampLowered) return;
+        if(storedCars.size() >= 3 || !rampLowered || car.getCurrentSpeed() > 0.01) return;
         Point2D current = getPos();
         Point2D carPos = car.getPos();
 

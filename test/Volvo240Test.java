@@ -16,6 +16,11 @@ public class Volvo240Test {
     }
 
     @Test
+    public void createSaabWithParams() {
+        Volvo240 volvo2 = new Volvo240(Color.BLACK, "Volvo240", 4, 100, 0, 0);
+    }
+
+    @Test
     public void doors(){
         assertEquals(4, volvo.getNrDoors());
     }

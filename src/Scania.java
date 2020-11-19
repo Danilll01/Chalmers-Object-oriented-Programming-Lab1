@@ -15,15 +15,15 @@ public class Scania extends Truck {
      * Sets the attributes to their default values
      */
     public Scania(){
-        setColor(Color.PINK);
-        setModelName("Scania-R");
-        setNrDoors(2);
-        setEnginePower(200);
-        stopEngine();
-
-        setPos(0, 0);
+        super(Color.PINK, "Scania-R", 2, 200, 0, 0);
     }
 
+    /**
+     * Passes constructor parameters to super.
+     */
+    public Scania(Color color, String modelName, int nDoors, double enginePower, double posX, double posY) {
+        super(color, modelName, nDoors, enginePower, posX, posY);
+    }
 
     /**
      * Raises the angle of the truck's platform by specified amount of degrees but only if the truck is stationary.
@@ -32,7 +32,7 @@ public class Scania extends Truck {
      * @param amount angle in degrees
      */
     public void raisePlatform(int amount) {
-        if (amount < 0 || getCurrentSpeed() < 0.001) return;
+        if (amount < 0 || getCurrentSpeed() > 0.001) return;
         int newValue = platformAngle + amount;
 
         platformAngle = Math.min(newValue, 70);
@@ -45,12 +45,18 @@ public class Scania extends Truck {
      * @param amount angle in degrees
      */
     public void lowerPlatform(int amount) {
-        if (amount < 0 || getCurrentSpeed() < 0.001) return;
+        if (amount < 0 || getCurrentSpeed() > 0.001) return;
         int newValue = platformAngle - amount;
 
         platformAngle = Math.max(newValue, 0);
     }
-
+    /**
+     * Getter for platformAngle, used for tests
+     * @return returns the platforms angle
+     */
+    public int getplatformAngle() {
+        return platformAngle;
+    }
     /**
      * Returns the factor by which the speed should be modified when it accelerates/decelerates.
      * @return factor to modify currentSpeed with during acceleration/deceleration

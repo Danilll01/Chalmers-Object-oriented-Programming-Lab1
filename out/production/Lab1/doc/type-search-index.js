@@ -1,1 +1,1 @@
-typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"Car"},{"p":"<Unnamed>","l":"Movable"},{"p":"<Unnamed>","l":"Saab95"},{"p":"<Unnamed>","l":"Volvo240"}]
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"<Unnamed>","l":"Car"},{"p":"<Unnamed>","l":"CarTransport"},{"p":"<Unnamed>","l":"ILoadable"},{"p":"<Unnamed>","l":"IMovable"},{"p":"<Unnamed>","l":"Saab95"},{"p":"<Unnamed>","l":"Scania"},{"p":"<Unnamed>","l":"Truck"},{"p":"<Unnamed>","l":"Vehicle"},{"p":"<Unnamed>","l":"Volvo240"}]

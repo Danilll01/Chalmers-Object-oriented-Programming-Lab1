@@ -34,7 +34,7 @@ public abstract class Vehicle implements IMovable
     /**
      * The vehicles position described with a Point2D.Double object.
      */
-    private Point2D.Double position;
+    private final Point2D.Double position;
 
     /**
      * The direction of the vehicles velocity in radians
@@ -47,19 +47,22 @@ public abstract class Vehicle implements IMovable
     protected boolean movable;
 
     /**
-     * Sets the name of the vehicle's model.
-     * @param modelName specified model name
+     * Constructor which sets attributes to given values.
+     * @param color color of vehicle
+     * @param modelName model name of vehicle
+     * @param nDoors nr of doors on the vehicle
+     * @param enginePower engine power of vehicle
+     * @param posX position in x-axis
+     * @param posY position in y-axis
      */
-    protected void setModelName(String modelName) {
+    public Vehicle(Color color, String modelName, int nDoors, double enginePower, double posX, double posY) {
+        this.color = color;
         this.modelName = modelName;
-    }
-
-    /**
-     * Sets the number of doors on the vehicle.
-     * @param nrDoors amount of doors
-     */
-    protected void setNrDoors(int nrDoors) {
-        this.nrDoors = nrDoors;
+        this.nrDoors = nDoors;
+        this.enginePower = enginePower;
+        this.position = new Point2D.Double(posX, posY);
+        stopEngine();
+        movable = true;
     }
 
     /**
@@ -96,35 +99,11 @@ public abstract class Vehicle implements IMovable
     }
 
     /**
-     * Returns the color of the vehicle.
-     * @return color of the vehicle
-     */
-    public Color getColor(){
-        return color;
-    }
-
-    /**
-     * Returns the model name of the vehicle.
-     * @return model name of vehicle
-     */
-    public String getModelName(){
-        return modelName;
-    }
-
-    /**
      * Returns the engine power of the vehicle.
      * @return the engine power of the vehicle
      */
     public double getEnginePower(){
         return enginePower;
-    }
-
-    /**
-     * Sets the engine power of the vehicle.
-     * @param enginePower specifiec engine power to be set
-     */
-    protected void setEnginePower(double enginePower) {
-        this.enginePower = enginePower;
     }
 
     /**
@@ -135,13 +114,6 @@ public abstract class Vehicle implements IMovable
         return currentSpeed;
     }
 
-    /**
-     * Sets the color of the vehicle
-     * @param clr color of the vehicle
-     */
-    protected void setColor(Color clr){
-        color = clr;
-    }
 
     /**
      * Sets the currentSpeed to 0.1. Used to change the currentSpeed from 0.
@@ -163,15 +135,6 @@ public abstract class Vehicle implements IMovable
      */
     public Point2D.Double getPos() {
         return position;
-    }
-
-    /**
-     * Sets the position of the vehicle in the 2D plane.
-     * @param x vehicle's position in x direction
-     * @param y vehicle's position in y direction
-     */
-    public void setPos(double x, double y) {
-        position = new Point2D.Double(x,y);
     }
 
     /**
@@ -234,7 +197,7 @@ public abstract class Vehicle implements IMovable
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void gas(double amount){
-        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("gas amount has to be between 0 and 1");
+        if(amount > 1 || amount < 0) throw new IllegalArgumentException("gas amount has to be between 0 and 1");
 
         incrementSpeed(amount);
     }
@@ -245,7 +208,7 @@ public abstract class Vehicle implements IMovable
      * @throws IllegalArgumentException if amount is not between 0 and 1
      */
     public void brake(double amount){
-        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("break amount has to be between 0 and 1");
+        if(amount > 1 || amount < 0) throw new IllegalArgumentException("break amount has to be between 0 and 1");
 
         decrementSpeed(amount);
     }

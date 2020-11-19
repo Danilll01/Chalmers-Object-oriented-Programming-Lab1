@@ -15,6 +15,13 @@ public abstract class Car extends Vehicle implements ILoadable
     private CarTransport transport;
 
     /**
+     * Passes constructor parameters to super.
+     */
+    public Car(Color color, String modelName, int nDoors, double enginePower, double posX, double posY) {
+        super(color, modelName, nDoors, enginePower, posX, posY);
+    }
+
+    /**
      * Returns the factor by which the speed should be modified when it accelerates/decelerates.
      * @return factor to modify currentSpeed with during acceleration/deceleration
      */

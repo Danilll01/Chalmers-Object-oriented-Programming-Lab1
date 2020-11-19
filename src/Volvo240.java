@@ -14,13 +14,14 @@ public class Volvo240 extends Car {
      * Sets this cars color to black, model name to "Volvo 240", number of doors to 4, engine power to 100, stops the engine and sets start position to 0,0.
      */
     public Volvo240(){
-        setColor(Color.BLACK);
-        setModelName("Volvo 240");
-        setNrDoors(4);
-        setEnginePower(100);
-        stopEngine();
+        super(Color.BLACK, "Volvo240", 4, 100, 0, 0);
+    }
 
-        setPos(0, 0);
+    /**
+     * Passes constructor parameters to super.
+     */
+    public Volvo240(Color color, String modelName, int nDoors, double enginePower, double posX, double posY){
+        super(color, modelName, nDoors, enginePower, posX, posY);
     }
 
     /**
