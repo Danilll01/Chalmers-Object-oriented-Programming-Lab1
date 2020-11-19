@@ -1,0 +1,214 @@
+import java.awt.*;
+import java.awt.geom.Point2D;
+
+public abstract class Vehicle implements Movable
+{
+    /**
+     * Number of doors on the vehicle.
+     */
+    private int nrDoors;
+    /**
+     * Color of the vehicle.
+     */
+    private Color color;
+    /**
+     * Decides the max speed of the vehicle as well as its rate of acceleration.
+     */
+    private double enginePower;
+    /**
+     * Current total velocity of the vehicle.
+     */
+    private double currentSpeed;
+    /**
+     * Name of the vehicle's model.
+     */
+    private String modelName;
+
+    /**
+     * The vehicles position described with a Point2D.Double object.
+     */
+    private Point2D.Double position;
+
+    /**
+     * The direction of the vehicles velocity in radians
+     */
+    private double direction;
+
+    /**
+     * Sets the name of the vehicle's model.
+     * @param modelName specified model name
+     */
+    protected void setModelName(String modelName) {
+        this.modelName = modelName;
+    }
+
+    /**
+     * Sets the number of doors on the vehicle.
+     * @param nrDoors amount of doors
+     */
+    protected void setNrDoors(int nrDoors) {
+        this.nrDoors = nrDoors;
+    }
+
+    /**
+     * Returns the number of doors on the vehicle.
+     * @return the number of doors on the vehicle
+     */
+    public int getNrDoors(){
+        return nrDoors;
+    }
+
+    /**
+     * Returns the color of the vehicle.
+     * @return color of the vehicle
+     */
+    public Color getColor(){
+        return color;
+    }
+
+    /**
+     * Returns the model name of the vehicle.
+     * @return model name of vehicle
+     */
+    public String getModelName(){
+        return modelName;
+    }
+
+    /**
+     * Returns the engine power of the vehicle.
+     * @return the engine power of the vehicle
+     */
+    public double getEnginePower(){
+        return enginePower;
+    }
+
+    /**
+     * Sets the engine power of the vehicle.
+     * @param enginePower specifiec engine power to be set
+     */
+    protected void setEnginePower(double enginePower) {
+        this.enginePower = enginePower;
+    }
+
+    /**
+     * Returns the current total velocity of the vehicle.
+     * @return current velocity of the vehicle
+     */
+    public double getCurrentSpeed(){
+        return currentSpeed;
+    }
+
+    /**
+     * Sets the color of the vehicle
+     * @param clr color of the vehicle
+     */
+    protected void setColor(Color clr){
+        color = clr;
+    }
+
+    /**
+     * Sets the currentSpeed to 0.1. Used to change the currentSpeed from 0.
+     */
+    public void startEngine(){
+        currentSpeed = 0.1;
+    }
+
+    /**
+     * Sets the current speed of the vehicle to 0. Makes the vehicle stop moving.
+     */
+    public void stopEngine(){
+        currentSpeed = 0;
+    }
+
+    /**
+     * Returns the position of the vehicle.
+     * @return a Point with x and y coordinates
+     */
+    public Point2D getPos() {
+        return position;
+    }
+
+    /**
+     * Sets the position of the vehicle in the 2D plane.
+     * @param x vehicle's position in x direction
+     * @param y vehicle's position in y direction
+     */
+    public void setPos(double x, double y) {
+        position = new Point2D.Double(x,y);
+    }
+
+    /**
+     * Returns the current direction of the vehicle's velocity in radians.
+     * @return the vehicle's velocity's direction in radians
+     */
+    public double getDirection() {
+        return direction;
+    }
+
+    /**
+     * Returns the factor by which the speed should be modified when it accelerates/decelerates.
+     * @return factor to modify currentSpeed with during acceleration/deceleration
+     */
+    protected abstract double speedFactor();
+
+    /**
+     * Increases the vehicle's total velocity. Velocity cannot be increased beyond enginePower.
+     * @param amount amount to increase the vehicle's velocity by
+     */
+    private void incrementSpeed(double amount){
+        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
+    }
+
+    /**
+     * Decreases the vehicle's total velocity. Velocity cannot be decreased to below zero.
+     * @param amount amount to decrease the vehicle's velocity by
+     */
+    private void decrementSpeed(double amount) {
+        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+    }
+
+    /**
+     * Updates the vehicle's position in the 2D plane according to it's currentSpeed and direction.
+     */
+    public void move(){
+        double x = getCurrentSpeed() * Math.cos(direction);
+        double y = getCurrentSpeed() * Math.sin(direction);
+        position.setLocation(position.getX() + x, position.getY() + y);
+    }
+
+    /**
+     * Makes the vehicle turn 90 degrees to the left. Increases the vehicle's direction by PI/2 radians.
+     */
+    public void turnLeft(){
+        direction += Math.PI / 2;
+    }
+
+    /**
+     * Makes the vehicle turn 90 degrees to the right. Decreases the vehicle's direction by PI/2 radians.
+     */
+    public void turnRight(){
+        direction -= Math.PI / 2;
+    }
+
+    /**
+     * Makes the vehicle accelerate, increases its current speed. Only accepts
+     * @param amount amount to increase the vehicle's speed by (between 0 and 1)
+     * @throws IllegalArgumentException if amount is not between 0 and 1
+     */
+    public void gas(double amount){
+        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("gas amount has to be between 0 and 1");
+
+        incrementSpeed(amount);
+    }
+
+    /**
+     * Makes the vehicle decelerate, decreases its current speed.
+     * @param amount amount to decrease the vehicle's speed by (between 0 and 1)
+     * @throws IllegalArgumentException if amount is not between 0 and 1
+     */
+    public void brake(double amount){
+        if(amount >= 1 || amount < 0) throw new IllegalArgumentException("break amount has to be between 0 and 1");
+
+        decrementSpeed(amount);
+    }
+}
