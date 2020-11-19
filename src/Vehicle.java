@@ -1,24 +1,31 @@
 import java.awt.*;
 import java.awt.geom.Point2D;
 
-public abstract class Vehicle implements Movable
+/**
+ * Object capable of moving with attributes and functionality that a real life vehicle would be expected to have.
+ */
+public abstract class Vehicle implements IMovable
 {
     /**
      * Number of doors on the vehicle.
      */
     private int nrDoors;
+
     /**
      * Color of the vehicle.
      */
     private Color color;
+
     /**
      * Decides the max speed of the vehicle as well as its rate of acceleration.
      */
     private double enginePower;
+
     /**
      * Current total velocity of the vehicle.
      */
     private double currentSpeed;
+
     /**
      * Name of the vehicle's model.
      */
@@ -35,6 +42,11 @@ public abstract class Vehicle implements Movable
     private double direction;
 
     /**
+     * If the vehicle can be moved.
+     */
+    protected boolean movable;
+
+    /**
      * Sets the name of the vehicle's model.
      * @param modelName specified model name
      */
@@ -48,6 +60,31 @@ public abstract class Vehicle implements Movable
      */
     protected void setNrDoors(int nrDoors) {
         this.nrDoors = nrDoors;
+    }
+
+    /**
+     * Sets position
+     * @param x position in x
+     * @param y position in y
+     */
+    protected void setPosition(double x, double y){
+        position.setLocation(x, y);
+    }
+
+    /**
+     * Sets Current speed
+     * @param speed speed
+     */
+    protected void setCurrentSpeed(double speed){
+        currentSpeed = speed;
+    }
+
+    /**
+     * Sets direction
+     * @param angle direction in angles
+     */
+    protected void setDirection(double angle){
+        direction = angle;
     }
 
     /**
@@ -110,21 +147,21 @@ public abstract class Vehicle implements Movable
      * Sets the currentSpeed to 0.1. Used to change the currentSpeed from 0.
      */
     public void startEngine(){
-        currentSpeed = 0.1;
+        if(movable) currentSpeed = 0.1;
     }
 
     /**
      * Sets the current speed of the vehicle to 0. Makes the vehicle stop moving.
      */
     public void stopEngine(){
-        currentSpeed = 0;
+        if(movable) currentSpeed = 0;
     }
 
     /**
      * Returns the position of the vehicle.
      * @return a Point with x and y coordinates
      */
-    public Point2D getPos() {
+    public Point2D.Double getPos() {
         return position;
     }
 
@@ -156,7 +193,7 @@ public abstract class Vehicle implements Movable
      * @param amount amount to increase the vehicle's velocity by
      */
     private void incrementSpeed(double amount){
-        currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
+        if(movable) currentSpeed = Math.min(getCurrentSpeed() + speedFactor() * amount, getEnginePower());
     }
 
     /**
@@ -164,13 +201,14 @@ public abstract class Vehicle implements Movable
      * @param amount amount to decrease the vehicle's velocity by
      */
     private void decrementSpeed(double amount) {
-        currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
+        if(movable) currentSpeed = Math.max(getCurrentSpeed() - speedFactor() * amount, 0);
     }
 
     /**
      * Updates the vehicle's position in the 2D plane according to it's currentSpeed and direction.
      */
     public void move(){
+        if(!movable) return;
         double x = getCurrentSpeed() * Math.cos(direction);
         double y = getCurrentSpeed() * Math.sin(direction);
         position.setLocation(position.getX() + x, position.getY() + y);

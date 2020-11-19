@@ -1,7 +1,7 @@
 /**
  * Specifies functionality of an object capable of moving and turning left or right.
  */
-public interface Movable {
+public interface IMovable {
     /**
      * Moves the object.
      */
