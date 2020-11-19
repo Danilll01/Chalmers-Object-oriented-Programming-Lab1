@@ -1,7 +1,6 @@
+import Vehicles.Cars.Saab95;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.awt.*;
 
 import static org.junit.Assert.*;
 

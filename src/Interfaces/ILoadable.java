@@ -1,3 +1,7 @@
+package Interfaces;
+
+import Vehicles.Trucks.CarTransport;
+
 /**
  * Defines an object capable of being loaded onto another object.
  */

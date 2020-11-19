@@ -1,5 +1,8 @@
+package Vehicles;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
+import Interfaces.IMovable;
 
 /**
  * Object capable of moving with attributes and functionality that a real life vehicle would be expected to have.

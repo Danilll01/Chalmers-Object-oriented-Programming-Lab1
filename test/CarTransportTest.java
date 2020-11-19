@@ -1,3 +1,6 @@
+import Vehicles.Cars.Car;
+import Vehicles.Cars.Volvo240;
+import Vehicles.Trucks.CarTransport;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,7 +25,10 @@ public class CarTransportTest {
     public void loadCar() {
         transport.lowerRamp();
         transport.loadCar(car);
-        car.setCurrentSpeed(15);
+
+        for (int i = 0; i < 10; i++) {
+            car.gas(1);
+        }
         car.move();
         assertEquals(0, car.getPos().getX(), 0.0001);
     }
@@ -49,7 +55,11 @@ public class CarTransportTest {
 
         transport.unloadCar();
         transport.raiseRamp();
-        transport.setCurrentSpeed(100);
+
+        for (int i = 0; i < 50; i++) {
+            transport.gas(1);
+        }
+
         transport.move();
 
         assertTrue(car.getPos().getX() < transport.getPos().getX());

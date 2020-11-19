@@ -1,3 +1,4 @@
+import Vehicles.Trucks.Scania;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -11,7 +12,7 @@ public class ScaniaTest {
     @Before
     public void before(){
         scania = new Scania();
-        scania = new Scania(Color.BLUE, "Scania-R", 2, 200, 0, 0);
+        scania = new Scania(Color.BLUE, "Vehicles.Trucks.Scania-R", 2, 200, 0, 0);
     }
 
     @Test

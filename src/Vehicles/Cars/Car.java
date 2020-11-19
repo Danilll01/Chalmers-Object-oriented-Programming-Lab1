@@ -1,3 +1,10 @@
+package Vehicles.Cars;
+
+import Interfaces.ILoadable;
+import Vehicles.Trucks.CarTransport;
+import Vehicles.Vehicle;
+
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 
@@ -16,6 +23,12 @@ public abstract class Car extends Vehicle implements ILoadable
 
     /**
      * Passes constructor parameters to super.
+     * @param color color of vehicle
+     * @param modelName model name of vehicle
+     * @param nDoors nr of doors on the vehicle
+     * @param enginePower engine power of vehicle
+     * @param posX position in x-axis
+     * @param posY position in y-axis
      */
     public Car(Color color, String modelName, int nDoors, double enginePower, double posX, double posY) {
         super(color, modelName, nDoors, enginePower, posX, posY);

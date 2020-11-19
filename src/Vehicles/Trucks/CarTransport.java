@@ -1,3 +1,7 @@
+package Vehicles.Trucks;
+
+import Vehicles.Cars.Car;
+
 import java.awt.*;
 import java.awt.geom.Point2D;
 import java.util.ArrayDeque;
@@ -6,7 +10,7 @@ import java.util.Deque;
 /**
  * Implements the idea of a Car transport that can transport cars on itself
  * Has a ramp that can be raised and lowered when transport is stationary, cars can be loaded and unloaded when the ramp is lowered
- * extends Truck
+ * extends Vehicles.Trucks.Truck
  */
 
 public class CarTransport extends Truck
@@ -32,6 +36,12 @@ public class CarTransport extends Truck
 
     /**
      * Passes constructor parameters to super, creates a stack and set rampLowered to false.
+     * @param color color of vehicle
+     * @param modelName model name of vehicle
+     * @param nDoors nr of doors on the vehicle
+     * @param enginePower engine power of vehicle
+     * @param posX position in x-axis
+     * @param posY position in y-axis
      */
     public CarTransport(Color color, String modelName, int nDoors, double enginePower, double posX, double posY) {
         super(color, modelName, nDoors, enginePower, posX, posY);
@@ -41,7 +51,7 @@ public class CarTransport extends Truck
     }
 
     /**
-     * Overrides Vehicle class' move method. Now checks if the ramp is up before moving, and updates the position of every loaded car,
+     * Overrides Vehicles.Vehicle class' move method. Now checks if the ramp is up before moving, and updates the position of every loaded car,
      * as the cannot move by themselves.
      */
     @Override
