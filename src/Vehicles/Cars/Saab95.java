@@ -1,3 +1,5 @@
+package Vehicles.Cars;
+
 import java.awt.*;
 
 /**
@@ -12,13 +14,20 @@ public class Saab95 extends Car {
      * position to (0, 0) and stops the engine (sets current speed to 0).
      */
     public Saab95(){
-        setColor(Color.RED);
-        setModelName("Saab 95");
-        setNrDoors(2);
-        setEnginePower(125);
-        stopEngine();
+        super(Color.RED, "Saab95", 2, 125, 0, 0);
+    }
 
-        setPos(0, 0);
+    /**
+     * Passes constructor parameters to super.
+     * @param color color of vehicle
+     * @param modelName model name of vehicle
+     * @param nDoors nr of doors on the vehicle
+     * @param enginePower engine power of vehicle
+     * @param posX position in x-axis
+     * @param posY position in y-axis
+     */
+    public Saab95(Color color, String modelName, int nDoors, double enginePower, double posX, double posY){
+        super(color, modelName, nDoors, enginePower, posX, posY);
     }
 
     /**

@@ -1,3 +1,4 @@
+import Vehicles.Cars.Saab95;
 import org.junit.Before;
 import org.junit.Test;
 import java.awt.*;
@@ -11,6 +12,11 @@ public class Saab95Test {
     @Before
     public void before(){
         saab = new Saab95();
+    }
+
+    @Test
+    public void createSaabWithParams() {
+        Saab95 saab2 = new Saab95(Color.RED, "Vehicles.Cars.Saab95", 2, 125, 0, 0);
     }
 
     @Test

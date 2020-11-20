@@ -1,9 +1,9 @@
+import Vehicles.Cars.Volvo240;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.awt.*;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 
 public class Volvo240Test {
@@ -13,6 +13,11 @@ public class Volvo240Test {
     @Before
     public void before(){
         volvo = new Volvo240();
+    }
+
+    @Test
+    public void createSaabWithParams() {
+        Volvo240 volvo2 = new Volvo240(Color.BLACK, "Vehicles.Cars.Volvo240", 4, 100, 0, 0);
     }
 
     @Test
