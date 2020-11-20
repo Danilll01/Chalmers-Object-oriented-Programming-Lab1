@@ -1,5 +1,6 @@
 package Vehicles.Trucks;
 
+import Vehicles.Cars.Car;
 import Vehicles.Trucks.Truck;
 
 import java.awt.*;
@@ -33,6 +34,15 @@ public class Scania extends Truck {
      */
     public Scania(Color color, String modelName, int nDoors, double enginePower, double posX, double posY) {
         super(color, modelName, nDoors, enginePower, posX, posY);
+    }
+
+    /**
+     * Overrides Vehicle class' move method. Now checks if the ramp is up before moving.
+     */
+    @Override
+    public void move(){
+        if(platformAngle > 0 || !movable) return;
+        super.move();
     }
 
     /**

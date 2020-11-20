@@ -22,6 +22,11 @@ public abstract class Car extends Vehicle implements ILoadable
     private CarTransport transport;
 
     /**
+     * If the car is loaded on another object.
+     */
+    private boolean isLoaded;
+
+    /**
      * Passes constructor parameters to super.
      * @param color color of vehicle
      * @param modelName model name of vehicle
@@ -32,6 +37,7 @@ public abstract class Car extends Vehicle implements ILoadable
      */
     public Car(Color color, String modelName, int nDoors, double enginePower, double posX, double posY) {
         super(color, modelName, nDoors, enginePower, posX, posY);
+        isLoaded = false;
     }
 
     /**
@@ -52,6 +58,14 @@ public abstract class Car extends Vehicle implements ILoadable
     }
 
     /**
+     * Returns isLoaded state
+     * @return if car is loaded onto something
+     */
+    public boolean isLoaded(){
+        return isLoaded;
+    }
+
+    /**
      * Method that is called when the car gets loaded onto a car transporter. Sets relevant attributes to specified values
      * to keep track of the transporter's speed and other attributes in the future.
      * @param transport car transporter that the car is loaded onto
@@ -65,7 +79,21 @@ public abstract class Car extends Vehicle implements ILoadable
         setCurrentSpeed(0);
         setDirection(transport.getDirection());
 
+        isLoaded = true;
+
         movable = false;
+    }
+
+    /**
+     * Overload of load method, in case the object onto which the car will be loaded can't move/is not a car transport.
+     * Takes a position instead of a car transport, where the car  will be located until it is unloaded.
+     * @param loadPos position where car will be loaded
+     */
+    public void load(Point2D.Double loadPos){
+        setPosition(loadPos.getX(), loadPos.getY());
+        setCurrentSpeed(0);
+        movable = false;
+        isLoaded = true;
     }
 
     /**
@@ -79,6 +107,7 @@ public abstract class Car extends Vehicle implements ILoadable
         setPosition(currentPos.getX() + 5, currentPos.getY() + 5);
 
         movable = true;
+        isLoaded = false;
     }
 
 }

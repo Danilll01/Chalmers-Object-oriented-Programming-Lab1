@@ -3,7 +3,6 @@ package Vehicles.Trucks;
 import Vehicles.Cars.Car;
 
 import java.awt.*;
-import java.awt.geom.Point2D;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
@@ -51,7 +50,7 @@ public class CarTransport extends Truck
     }
 
     /**
-     * Overrides Vehicles.Vehicle class' move method. Now checks if the ramp is up before moving, and updates the position of every loaded car,
+     * Overrides Vehicle class' move method. Now checks if the ramp is up before moving, and updates the position of every loaded car,
      * as the cannot move by themselves.
      */
     @Override
@@ -71,39 +70,39 @@ public class CarTransport extends Truck
     }
 
     /**
-     * Lowers the ramp
+     * Lowers the ramp. Throws an error if the transport is moving, needs to be caught during implementation.
+     * @throws IllegalStateException if transport is moving.
      */
     public void lowerRamp(){
-        if(getCurrentSpeed() > 0.01) return;
+        if(getCurrentSpeed() > 0.01) throw new IllegalStateException("Transport is moving");
         rampLowered = true;
     }
 
     /**
      * Loads given car onto the car transporter. Will not load if the transporter is full, or if the car is not within a
-     * distance of 5 l.u.
+     * distance of 5 l.u. Creates an error if the transport is FULL, needs to be caught during implementation.
      * @param car car to be loaded
+     * @throws IllegalArgumentException if transporter is full.
+     * @throws IllegalArgumentException if car is too far away.
      */
     public void loadCar(Car car){
-        if(storedCars.size() >= 3 || !rampLowered || car.getCurrentSpeed() > 0.01) return;
-        Point2D current = getPos();
-        Point2D carPos = car.getPos();
+        if(storedCars.size() >= 3 || !rampLowered || car.getCurrentSpeed() > 0.01) throw new IllegalArgumentException("Transport is full");
+        if (car.isLoaded()) throw new IllegalArgumentException("Car is already loaded");
 
-        double distX = Math.abs(current.getX() - carPos.getX());
-        double distY = Math.abs(current.getY() - carPos.getY());
+        double distance = getPos().distance(car.getPos());
 
-        double distance = Math.sqrt(Math.pow(distX, 2) + Math.pow(distY, 2));
-
-        if(distance > 5) return;
+        if(distance > 5) throw new IllegalArgumentException("Too far away");
 
         car.load(this);
         storedCars.add(car);
     }
 
     /**
-     * Unloads last car from transport unless transport is empty.
+     * Unloads last car from transport unless transport is empty. Creates an error if the transport is EMPTY, needs to be caught during implementation..
+     * @throws IllegalArgumentException if transporter is empty.
      */
     public void unloadCar(){
-        if(storedCars.isEmpty() || !rampLowered) return;
+        if(storedCars.isEmpty() || !rampLowered) throw new IllegalArgumentException("Transport is empty");
 
         storedCars.pop().unload();
     }

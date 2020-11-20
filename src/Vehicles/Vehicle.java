@@ -184,14 +184,14 @@ public abstract class Vehicle implements IMovable
      * Makes the vehicle turn 90 degrees to the left. Increases the vehicle's direction by PI/2 radians.
      */
     public void turnLeft(){
-        direction += Math.PI / 2;
+        if(movable) direction += Math.PI / 2;
     }
 
     /**
      * Makes the vehicle turn 90 degrees to the right. Decreases the vehicle's direction by PI/2 radians.
      */
     public void turnRight(){
-        direction -= Math.PI / 2;
+        if(movable) direction -= Math.PI / 2;
     }
 
     /**

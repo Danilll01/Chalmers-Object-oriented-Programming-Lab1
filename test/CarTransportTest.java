@@ -89,7 +89,12 @@ public class CarTransportTest {
         transport.loadCar(new Volvo240());
         transport.loadCar(new Volvo240());
 
-        transport.loadCar(car);
+        try {
+            transport.loadCar(car);
+            fail();
+        } catch (IllegalArgumentException e) {
+            assertTrue(true);
+        }
 
         transport.raiseRamp();
         transport.gas(1);
